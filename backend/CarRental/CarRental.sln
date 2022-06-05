@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.API", "CarRental.API\CarRental.API.csproj", "{AA473A7A-CAF7-4EDC-95B1-7CB8610278E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Database", "CarRental.Database\CarRental.Database.csproj", "{A1B99C78-E7CF-49C4-8D3E-1C15CFAB0FEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA473A7A-CAF7-4EDC-95B1-7CB8610278E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA473A7A-CAF7-4EDC-95B1-7CB8610278E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA473A7A-CAF7-4EDC-95B1-7CB8610278E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA473A7A-CAF7-4EDC-95B1-7CB8610278E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B99C78-E7CF-49C4-8D3E-1C15CFAB0FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B99C78-E7CF-49C4-8D3E-1C15CFAB0FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B99C78-E7CF-49C4-8D3E-1C15CFAB0FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B99C78-E7CF-49C4-8D3E-1C15CFAB0FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A2852B9-15DC-411A-83F6-86CAFFCAB8D9}
+	EndGlobalSection
+EndGlobal
