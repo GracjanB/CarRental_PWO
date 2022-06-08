@@ -1,0 +1,61 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.1",
+    "buefy": "^0.9.7",
+    "core-js": "^3.8.3",
+    "cors-anywhere": "^0.4.4",
+    "jquery": "^3.6.0",
+    "leaflet": "^1.7.1",
+    "slick-carousel": "^1.8.1",
+    "vue": "^2.6.14",
+    "vue-aos": "^2.3.0",
+    "vue-axios": "^3.2.4",
+    "vue-moment": "^4.1.0",
+    "vue-notification": "^1.3.20",
+    "vue-router": "^3.2.0",
+    "vue-scrollto": "^2.20.0",
+    "vue2-leaflet": "^2.7.0",
+    "vuejs-noty": "^0.1.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
