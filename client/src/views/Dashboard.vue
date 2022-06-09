@@ -40,7 +40,3 @@ export default {
   components: {Add, FinishPay, Payment, Map, Rent, Available, Header, Footer}
 }
 </script>
-
-<style scoped>
-
-</style>

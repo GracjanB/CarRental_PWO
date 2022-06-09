@@ -1,8 +1,3 @@
-<template>
-  <div class="blue-bcg-hp" >
-
-  </div>
-</template>
 
 <script>
 import $ from 'jquery'
