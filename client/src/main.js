@@ -16,6 +16,9 @@ import 'vuejs-noty/dist/vuejs-noty.css';
 import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
 import 'leaflet/dist/leaflet.css';
 import * as VueAos from 'vue-aos'
+import VueKinesis from 'vue-kinesis'
+
+
 
 library.add(faUserSecret)
 library.add(faArrowCircleUp)
@@ -24,6 +27,7 @@ Vue.use(Buefy)
 Vue.use($)
 Vue.use(require('vue-moment'));
 Vue.use(VueScrollTo)
+Vue.use(VueKinesis)
 Vue.use(VueNoty,{
   timeout: 2300,
   progressBar: true
@@ -34,6 +38,8 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 Vue.component('l-popup', LPopup);
 Vue.component('l-tooltip', LTooltip);
+
+Vue.config.productionTip = false
 
 new Vue({
   router,
