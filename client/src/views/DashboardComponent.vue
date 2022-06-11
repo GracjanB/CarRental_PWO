@@ -1,25 +1,26 @@
 <template>
-<div>
-  <HeaderComponent></HeaderComponent>
-  <div class="row">
-    <div class="col-lg-4 col-md-12">
-      <AvailableComponent></AvailableComponent>
+  <div>
+    <HeaderComponent></HeaderComponent>
+    <div class="row">
+      <div class="col-lg-4 col-md-12">
+        <AvailableComponent></AvailableComponent>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <AddComponent v-if="isAdmin"></AddComponent>
+        <PaymentComponent v-if="isUser"></PaymentComponent>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <RentComponent></RentComponent>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <MapComponent v-if="isUser"></MapComponent>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <FinishPayComponent v-if="isUser"></FinishPayComponent>
+      </div>
     </div>
-    <div class="col-lg-4 col-md-12">
-      <PaymentComponent v-if="isUser"></PaymentComponent>
-    </div>
-    <div class="col-lg-4 col-md-12">
-      <RentComponent></RentComponent>
-    </div>
-    <div class="col-lg-12 col-md-12">
-      <MapComponent v-if="isUser"></MapComponent>
-    </div>
-    <div class="col-lg-12 col-md-12">
-      <FinishPayComponent v-if="isUser"></FinishPayComponent>
-    </div>
+    <FooterComponent></FooterComponent>
   </div>
-  <FooterComponent></FooterComponent>
-</div>
 </template>
 
 <script>
@@ -30,6 +31,7 @@ import RentComponent from "../components/Dashboard/RentComponent";
 import MapComponent from "../components/Dashboard/MapComponent";
 import PaymentComponent from "../components/Dashboard/PaymentComponent";
 import FinishPayComponent from "../components/Dashboard/FinishPayCompontent";
+import AddComponent from "../components/Admin/AddComponent";
 export default {
   name: "DashboardComponent",
   data() {
@@ -54,7 +56,7 @@ export default {
   mounted() {
 
   },
-  components: { FinishPayComponent, PaymentComponent, MapComponent, RentComponent, AvailableComponent, HeaderComponent, FooterComponent}
+  components: { AddComponent,FinishPayComponent, PaymentComponent, MapComponent, RentComponent, AvailableComponent, HeaderComponent, FooterComponent}
 }
 </script>
 

@@ -6,7 +6,7 @@
        <kinesis-container class="container">
 
        <div class="card shadow-lg h-100">
-         <div class="row h-100 m-0" style="background: url('/Homepage/people2.png')">
+         <div class="row h-100 m-0" style="background: url('/Homepage/people2.jpg');background-size: cover;">
            <div class="col-lg-7 h-100 d-flex justify-content-center align-items-center">
              <kinesis-element :strength="40">
              <div class="card text-center p-5 mt200">
