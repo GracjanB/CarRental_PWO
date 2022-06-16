@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarRental.Database2\CarRental.Database.csproj" />
+    <ProjectReference Include="..\CarRental.Domain\CarRental.Domain.csproj" />
+    <ProjectReference Include="..\CarRental.Services.Interface\CarRental.Services.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
