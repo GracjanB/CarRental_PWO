@@ -12,3 +12,5 @@
 /backend/CarRental/CarRental.Domain/obj
 /backend/CarRental/CarRental.API2/bin/Debug/net5.0
 /backend/CarRental/CarRental.API2/obj
+/backend/CarRental/CarRental.Database2/bin/Debug/net5.0
+/backend/CarRental/CarRental.Domain/bin/Debug/netcoreapp3.1
