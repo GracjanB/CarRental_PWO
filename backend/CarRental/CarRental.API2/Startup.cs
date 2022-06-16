@@ -1,18 +1,14 @@
 using CarRental.Database;
+using CarRental.API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarRental.API2
 {
@@ -27,7 +23,20 @@ namespace CarRental.API2
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                // Every controller of the app needs authorization
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -37,6 +46,8 @@ namespace CarRental.API2
             // Database Connection
             services.AddDbContext<CarRentalContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("LocalPostgresqlConnection")));
+
+            services.AddIdentityServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,7 +63,14 @@ namespace CarRental.API2
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseCors(opt =>
+            {
+                opt.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
 
             app.UseEndpoints(endpoints =>
             {
