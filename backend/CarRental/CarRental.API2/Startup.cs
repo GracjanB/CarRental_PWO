@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using CarRental.Services;
+using CarRental.Services.Interface;
 
 namespace CarRental.API2
 {
@@ -48,6 +50,9 @@ namespace CarRental.API2
                 options.UseNpgsql(Configuration.GetConnectionString("LocalPostgresqlConnection")));
 
             services.AddIdentityServices(Configuration);
+
+            services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<IRentService, RentService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
