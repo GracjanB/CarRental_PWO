@@ -12,6 +12,9 @@ using Microsoft.OpenApi.Models;
 using CarRental.Services;
 using CarRental.Services.Interface;
 using MediatR;
+using System.Reflection;
+using CarRental.Application.Core.AutoMapper;
+using System.Linq;
 
 namespace CarRental.API2
 {
@@ -41,6 +44,16 @@ namespace CarRental.API2
                 });
             });
 
+            // AutoMapper config
+            var automapperProfiles = Assembly.GetEntryAssembly()
+                                             .GetReferencedAssemblies()
+                                             .Select(Assembly.Load)
+                                             .SelectMany(x => x.GetTypes())
+                                             .Where(x => x.Name.EndsWith("Profile") && x.FullName.StartsWith("CarRental.Application.Core.AutoMapper"))
+                                             .ToList();
+            automapperProfiles.Add(typeof(MapperProfiles));
+            services.AddAutoMapper(automapperProfiles.ToArray());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRental.API2", Version = "v1" });
@@ -51,6 +64,8 @@ namespace CarRental.API2
                 options.UseNpgsql(Configuration.GetConnectionString("LocalPostgresqlConnection")));
 
             services.AddIdentityServices(Configuration);
+
+            services.AddMediatR(typeof(Application.Vehicle.List).Assembly);
 
             services.AddScoped<IVehicleService, VehicleService>();
             services.AddScoped<IRentService, RentService>();
