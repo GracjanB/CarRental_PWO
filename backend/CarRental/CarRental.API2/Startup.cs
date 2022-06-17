@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using CarRental.Services;
 using CarRental.Services.Interface;
+using MediatR;
 
 namespace CarRental.API2
 {
