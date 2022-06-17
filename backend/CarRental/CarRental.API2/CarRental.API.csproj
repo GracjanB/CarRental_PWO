@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarRental.Application\CarRental.Application.csproj" />
     <ProjectReference Include="..\CarRental.Database2\CarRental.Database.csproj" />
     <ProjectReference Include="..\CarRental.Services.Interface\CarRental.Services.Interface.csproj" />
     <ProjectReference Include="..\CarRental.Services\CarRental.Services.csproj" />
