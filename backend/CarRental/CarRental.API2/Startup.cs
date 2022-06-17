@@ -61,7 +61,7 @@ namespace CarRental.API2
 
             // Database Connection
             services.AddDbContext<CarRentalContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("LocalPostgresqlConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("HerokuPostgresqlConnection")));
 
             services.AddIdentityServices(Configuration);
 
