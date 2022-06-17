@@ -17,3 +17,7 @@
 /backend/CarRental/CarRental.Services/obj
 /backend/CarRental/CarRental.Services.Interface/obj
 /backend/CarRental/CarRental.Application/obj
+/backend/CarRental/CarRental.Application/bin/Debug/net5.0
+/backend/CarRental/CarRental.Domain/bin/Debug/net5.0
+/backend/CarRental/CarRental.Services/bin/Debug/net5.0
+/backend/CarRental/CarRental.Services.Interface/bin/Debug/net5.0
