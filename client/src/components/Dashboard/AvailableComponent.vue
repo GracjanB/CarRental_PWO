@@ -17,14 +17,69 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
   name: "AvailableComponent",
   methods:{
+    goRent:function ()
+    {
+      $(".available .vehicle").click(function (){
+        $(".available .vehicle").removeClass("active");
+        $(this).addClass("active");
+      });
+    },
+    getCookie:function (name)
+    {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+      }
+      return null;
+    },
+    showAvailable:function ()
+    {
+      var that = this;
+      $.ajax({
+        contentType: "application/json",
+        headers:{
+          "accept":"text/plain",
+          "Connection":"keep-alive",
+          "Authorization":"Bearer "+that.getCookie("logintoken"),
+        },
+        type: "GET",
+        url: "https://car-rental-api-pwo.herokuapp.com/api/cars",
+        success: function(data){
+          var constr_available = "";
+          console.log(data);
+          var i = 1;
+          data.forEach((entry) => {
+            if(entry.isAvailable=="1")
+              constr_available+= '<li class="pl-4 pr-4 pt-4 pb-4 vehicle '+((i==1)?' active ':'')+'" data-id="'+entry.id+'">\n' +
+                  '           '+entry.mark+' '+entry.model+' (<small style="">'+entry.speed+' KM/H / '+entry.range+' KM</small>)\n' +
+                  '         </li>';
 
+            i++;
+          });
+          $(".available_ul").append(constr_available);
+          console.log(constr_available);
+
+          setTimeout(function(){ that.goRent(); }, 1000);
+        },
+        error: function (request, textStatus, errorThrown) {
+          console.log(request);
+          console.log("ER"+textStatus);
+          console.log("ER"+errorThrown);
+        }
+
+      });
+    }
   },
   mounted() {
-
-
+    var that = this;
+    that.showAvailable();
   }
 }
 </script>

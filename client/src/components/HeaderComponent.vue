@@ -31,6 +31,19 @@
 
       <template #end>
         <b-navbar-item tag="div">
+          <div v-if="islogin=='0'" class="buttons">
+            <a class="button blue-btn" >
+              <router-link to="/register" class="color-inherit"><strong>Dołącz do nas</strong></router-link>
+            </a>
+            <a class="button is-light">
+              <router-link to="/login" class="color-inherit">Zaloguj się</router-link>
+            </a>
+          </div>
+          <div v-if="islogin=='1'" class="buttons">
+            <a v-on:click="logout()"  class="button blue-btn" >
+              <strong>Wyloguj się</strong>
+            </a>
+          </div>
         </b-navbar-item>
       </template>
     </b-navbar>

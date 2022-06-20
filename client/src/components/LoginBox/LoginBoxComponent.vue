@@ -34,7 +34,7 @@
 </template>
 
 <script>
-
+import $ from "jquery";
 export default {
   name: "LoginBoxComponent",
   data: function () {
@@ -43,11 +43,51 @@ export default {
     }
   },
   methods:{
+    ajaxlogin:function ()
+    {
+      var that= this;
 
+      $( "#Login" ).click(function() {
+        var login = $("#login_field").val(),password = $("#password_field").val();
+
+        if(login!="" && password!= "")
+        {
+          $.ajax({
+            contentType: "application/json",
+            headers:{
+              "accept":"text/plain",
+              "Connection":"keep-alive"
+            },
+            type: "POST",
+            url: "https://car-rental-api-pwo.herokuapp.com/api/auth/login",
+            data: JSON.stringify({email:login,password:password}),
+            success: function(data, textStatus, request){
+              console.log("r"+request);
+              console.log("t"+textStatus);
+              that.$noty.success("Zostałeś pomyślnie zalogowany!");
+              document.cookie = "loginid="+data.id;
+              document.cookie = "loginname="+data.username;
+              document.cookie = "logintoken="+data.token;
+              location.reload();
+            },
+            error: function (request, textStatus, errorThrown) {
+              console.log("ER"+errorThrown);
+              that.$noty.error("Błędne dane logowania!");
+            }
+
+          });
+        }
+        else
+        {
+          that.$noty.error("Błędnie wypełnione pola logowania!");
+        }
+      });
+
+    },
   },
 
   mounted() {
-
+    this.ajaxlogin();
   }
 }
 </script>

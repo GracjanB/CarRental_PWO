@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   name: "RegisterBoxComponent",
   data: function () {
@@ -53,9 +54,59 @@ export default {
     }
   },
   methods:{
+    registerajax:function ()
+    {
+      var that= this;
 
+      $( "#Register" ).unbind().click(function() {
+        var login = $("#login_field").val(),password = $("#password_field").val(),email =$("#email_field").val();
+
+        if(login!="" && password!= "" && email!="")
+        {
+          if(email.includes("@") && email.includes("."))
+          {
+            if(password.length>=4 && password.length<=16 && (password != password.toLowerCase()))
+            {
+              $.ajax({
+                contentType: "application/json",
+                headers:{
+                  "accept":"text/plain",
+                  "Connection":"keep-alive"
+                },
+                type: "POST",
+                url: "https://car-rental-api-pwo.herokuapp.com/api/auth/register",
+                data: JSON.stringify({email:email,username:login,password:password}),
+                success: function(data, textStatus, request){
+                  console.log("r"+request);
+                  console.log("t"+textStatus);
+                  that.$noty.success("Zostałeś pomyślnie zarejestrowany, teraz możesz się zalogować!");
+                  $(".login_ok").html("<h4>Rejestracja pomyślna<br>Teraz możesz się zalogować</h4>")
+                },
+                error: function (request, textStatus, errorThrown) {
+                  console.log("ER"+errorThrown);
+                  that.$noty.error("UPS! Wygląda na to iż taki użytkownik istnieje");
+                }
+              });
+            }
+            else
+            {
+              that.$noty.error("Błędne hasło, wymagane: 4-16 znaków z min. 1 cyfrą i min. 1 dużą literą");
+            }
+          }
+          else
+          {
+            that.$noty.error("Błędny adres e-mail");
+          }
+        }
+        else
+        {
+          that.$noty.error("Błędnie wypełnione pola rejestracji!");
+        }
+      });
+    },
   },
   mounted() {
+    this.registerajax();
   }
 }
 </script>
