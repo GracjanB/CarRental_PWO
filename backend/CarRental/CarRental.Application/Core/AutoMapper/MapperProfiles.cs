@@ -11,6 +11,9 @@ namespace CarRental.Application.Core.AutoMapper
             CreateMap<Domain.Entity.Vehicle, VehicleDetailsDto>();
             CreateMap<VehicleForCreateDto, Domain.Entity.Vehicle>();
             CreateMap<VehicleForUpdateDto, Domain.Entity.Vehicle>();
+            CreateMap<Domain.Entity.Rent, RentForListDto>();
+            CreateMap<RentForCreateDto, Domain.Entity.Rent>();
+            CreateMap<RentForUpdateDto, Domain.Entity.Rent>();
         }
     }
 }
