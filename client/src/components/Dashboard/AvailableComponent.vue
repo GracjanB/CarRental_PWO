@@ -50,7 +50,7 @@ export default {
           "Authorization":"Bearer "+that.getCookie("logintoken"),
         },
         type: "GET",
-        url: "https://car-rental-api-pwo.herokuapp.com/api/cars",
+        url: "https://car-rental-api-pwo.herokuapp.com/api/Vehicle",
         success: function(data){
           var constr_available = "";
           console.log(data);
@@ -60,12 +60,10 @@ export default {
               constr_available+= '<li class="pl-4 pr-4 pt-4 pb-4 vehicle '+((i==1)?' active ':'')+'" data-id="'+entry.id+'">\n' +
                   '           '+entry.mark+' '+entry.model+' (<small style="">'+entry.speed+' KM/H / '+entry.range+' KM</small>)\n' +
                   '         </li>';
-
             i++;
           });
           $(".available_ul").append(constr_available);
           console.log(constr_available);
-
           setTimeout(function(){ that.goRent(); }, 1000);
         },
         error: function (request, textStatus, errorThrown) {
@@ -73,7 +71,6 @@ export default {
           console.log("ER"+textStatus);
           console.log("ER"+errorThrown);
         }
-
       });
     }
   },

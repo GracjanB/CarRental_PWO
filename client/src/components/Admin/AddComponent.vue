@@ -75,7 +75,7 @@ export default {
               "Authorization":"Bearer "+that.getCookie("logintoken"),
             },
             type: "POST",
-            url: "https://car-rental-api-pwo.herokuapp.com/api/cars",
+            url: "https://car-rental-api-pwo.herokuapp.com/api/Vehicle",
             data: JSON.stringify({mark:brand,model:model,range:parseInt(range),speed:parseInt(speed),pricePerHour:1,vehicleType:0,isAvailable:true}),
             success: function(data){
               console.log("SUCCESS RESET!");

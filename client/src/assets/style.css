@@ -238,6 +238,8 @@ form button{
     margin-top: 30px;
     border-radius: 12px;
     background-size: contain;
+    position: relative;
+    top:-36px;
 }
 .picto_24{
     background-image: url("../../public/Homepage/allday.gif");

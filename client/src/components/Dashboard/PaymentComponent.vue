@@ -6,9 +6,10 @@
 
       <h1 class="font-rider blue pt-4">Płatność</h1>
 
-      <div class="card pricer-box mb-4 mt-4  active" data-id="168"><h2 class="font-rider blue"> Tydzień: 500 zł </h2></div>
-      <div class="card pricer-box mb-4 mt-4 " data-id="48"><h2 class="font-rider blue"> 2 dni: 180 zł </h2></div>
-      <div class="card pricer-box mb-4 mt-4 " data-id="24"><h2  class="font-rider blue"> 1 dzień: 100 zł </h2></div>
+      <div class="card pricer-box mb-4 mt-4 mini  active" data-id="168"><h2 class="font-rider blue"> Tydzień: 500 zł </h2></div>
+      <div class="card pricer-box mb-4 mt-4 mini " data-id="48"><h2 class="font-rider blue"> 2 dni: 180 zł </h2></div>
+      <div class="card pricer-box mb-4 mt-4 mini " data-id="24"><h2  class="font-rider blue"> 1 dzień: 100 zł </h2></div>
+
 
       <div class="przelewy24">
         <span id="countpay" v-scroll-to="'#FINISHPAY'"> Przelicz </span>
@@ -57,23 +58,17 @@ export default {
         var vehicle_name = $(".vehicle.active").text();
         var vehicle_id = $(".vehicle.active").data("id");
         var hours_to_add = $(".pricer-box.active").data("id");
-
         $(".r_n").text(vehicle_name);
         $(".rent_vehilce").val(vehicle_id);
-
         var now = new Date();
         var after = new Date();
         now = that.getDateNow(now);
         $(".s_r").html(now);
-
         $("#rent_start").attr("value",now);
-
         after.setHours(after.getHours()+hours_to_add);
         after = that.getDateNow(after);
-
         $(".e_r").html(after)
         $("#rent_end").attr("value",after);
-
         $("#rent_user").attr("value",that.getCookie("loginid"));
         $("#rent_ontime").attr("value",hours_to_add);
         $("#rent_vehicle").attr("value",vehicle_id);
@@ -85,13 +80,8 @@ export default {
         var vehicleId = $("#rent_vehicle").val();
         var userId = $("#rent_user").val();
         var typeTime = $("#rent_ontime").val();
-
         startRent = new Date(startRent);
         endRent = new Date(endRent);
-
-        console.log(startRent);
-        console.log(endRent);
-
         //Request wypozyczenia
         $.ajax({
           contentType: "application/json",
@@ -101,14 +91,14 @@ export default {
             "Authorization":"Bearer "+that.getCookie("logintoken"),
           },
           type: "POST",
-          url: "https://car-rental-api-pwo.herokuapp.comapi/rentals",
-          data: JSON.stringify({startRental:startRent,endRental:endRent,totalPrice:parseInt(typeTime),discount:0,carId:vehicleId,userId:userId}),
+          url: "https://car-rental-api-pwo.herokuapp.com/api/Rent",
+          data: JSON.stringify({startRent:startRent,endRent:endRent,totalPrice:parseInt(typeTime),discount:0,vehicleId:vehicleId,userId:userId}),
           success: function(data, textStatus, request){
             console.log("r"+request);
             if(textStatus == "success")
             {
               $("#pay").slideUp();
-              that.$noty.success("Pomyślne wypożyczenie pojazdu! Za chwilę zostaniesz przekierowany...");
+              that.$noty.success("Pomyślne wypożyczenie hulajnogi! Za chwilę zostaniesz przekierowany...");
               $.ajax({
                 contentType: "application/json",
                 headers:{
@@ -117,7 +107,7 @@ export default {
                   "Authorization":"Bearer "+that.getCookie("logintoken"),
                 },
                 type: "PUT",
-                url: "https://car-rental-api-pwo.herokuapp.com/api/cars",
+                url: "https://car-rental-api-pwo.herokuapp.com/api/Vehicle",
                 data: JSON.stringify({id:vehicleId,mark:null,model:null,range:null,speed:null,pricePerHour:null,vehicleType:null,isAvailable:false}),
                 success: function(data){
                   console.log("SUCCESS RESET!");
@@ -140,9 +130,7 @@ export default {
           error: function (request) {
             console.log(request);
           }
-
         });
-
       });
     },
   },

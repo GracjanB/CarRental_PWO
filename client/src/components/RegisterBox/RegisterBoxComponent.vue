@@ -84,7 +84,7 @@ export default {
                 },
                 error: function (request, textStatus, errorThrown) {
                   console.log("ER"+errorThrown);
-                  that.$noty.error("UPS! Wygląda na to iż taki użytkownik istnieje");
+                  that.$noty.error("UPS! Wygląda na to iż taki użytkownik istnieje / Podano niepoprawne dane");
                 }
               });
             }

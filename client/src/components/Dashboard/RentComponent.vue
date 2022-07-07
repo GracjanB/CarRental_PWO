@@ -52,33 +52,32 @@ export default {
           "Authorization":"Bearer "+that.getCookie("logintoken"),
         },
         type: "GET",
-        url: "https://car-rental-api-pwo.herokuapp.com/api/rentals/",
+        url: "https://car-rental-api-pwo.herokuapp.com/api/Rent/",
         success: function(data){
           var constr_rent = "";
           console.log(data);
           var i = 1;
           data.forEach((entry) => {
-            var diffInMilliseconds = Math.abs(new Date(entry.startRental) - new Date(entry.endRental));
+            var diffInMilliseconds = Math.abs(new Date(entry.startRent) - new Date(entry.endRent));
             var hours_diff = Math.floor(diffInMilliseconds / 3600) % 24;
             var class_rent_img = '';
-            if(hours_diff==24)
+            if(hours_diff==1)
               class_rent_img = "picto_1";
-            else if(hours_diff==48)
+            else if(hours_diff==12)
               class_rent_img = "picto_12";
             else
               class_rent_img = "picto_24";
-
-            if (new Date(entry.endRental)>new Date())
+            if (new Date(entry.endRent)>new Date())
             {
               constr_rent+= '<li class="pl-4 pr-4 pt-4 pb-4 ">\n' +
-                  '            '+entry.car.mark+' '+entry.car.model+'\n' +
+                  '            '+entry.vehicle.mark+' '+entry.vehicle.model+'\n' +
                   '            <div class="rent_">\n' +
                   '              <div class="row">\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
-                  '                  <span class="start_rent">'+entry.startRental.replace("T0"," ").replace("T1"," ")+'</span>\n' +
+                  '                  <span class="start_rent">'+entry.startRent.replace("T0"," ").replace("T1"," ")+'</span>\n' +
                   '                </div>\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
-                  '                  <span class="end_rent">'+entry.endRental.replace("T0"," ").replace("T1"," ")+'</span>\n' +
+                  '                  <span class="end_rent">'+entry.endRent.replace("T0"," ").replace("T1"," ")+'</span>\n' +
                   '                </div>\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
                   '                  <span class="rent_picto '+class_rent_img+'"></span>\n' +
@@ -111,13 +110,14 @@ export default {
           "Authorization":"Bearer "+that.getCookie("logintoken"),
         },
         type: "GET",
-        url: "https://car-rental-api-pwo.herokuapp.com/api/rentals/filter/user/"+that.getCookie("loginid"),
+        url: "https://car-rental-api-pwo.herokuapp.com/api/Rent/filter/user/"+that.getCookie("loginid"),
+        // data: JSON.stringify({mark:"Xiaomi",model:"Scooter Mi Pro",range:30,speed:30,isAvailable:true,pricePerHour:1,vehicleType:0}),
         success: function(data){
           var constr_rent = "";
           console.log(data);
           var i = 1;
           data.forEach((entry) => {
-            var diffInMilliseconds = Math.abs(new Date(entry.startRental) - new Date(entry.endRental));
+            var diffInMilliseconds = Math.abs(new Date(entry.startRent) - new Date(entry.endRent));
             var hours_diff = Math.floor(diffInMilliseconds / 3600) % 24;
             var class_rent_img = '';
             if(hours_diff==1)
@@ -126,21 +126,19 @@ export default {
               class_rent_img = "picto_12";
             else
               class_rent_img = "picto_24";
-            console.log("MOJEENTRY");
-            console.log(entry);
-            if (new Date(entry.endRental)>new Date())
-              constr_rent+= '<li class="pl-4 pr-4 pt-4 changeQR" data-vehicleid="'+entry.car.id+'">\n' +
-                  '            '+entry.car.mark+' '+entry.car.model+'\n' +
+            if (new Date(entry.endRent)>new Date())
+              constr_rent+= '<li class="pl-4 pr-4 pt-4 changeQR" data-vehicleid="'+entry.vehicle.id+'">\n' +
+                  '            '+entry.vehicle.mark+' '+entry.vehicle.model+'\n' +
                   '            <div class="rent_">\n' +
                   '              <div class="row">\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
-                  '                  <span class="start_rent">'+entry.startRental.replace("T0"," ").replace("T1"," ")+'</span>\n' +
+                  '                  <span class="start_rent">'+entry.startRent.replace("T0"," ").replace("T1"," ")+'</span>\n' +
                   '                </div>\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
-                  '                  <span class="end_rent">'+entry.endRental.replace("T0"," ").replace("T1"," ")+'</span>\n' +
+                  '                  <span class="end_rent">'+entry.endRent.replace("T0"," ").replace("T1"," ")+'</span>\n' +
                   '                </div>\n' +
                   '                <div class="col-lg-4 col-md-12">\n' +
-                  '                  <span style="position: relative;top: -40px;" class="rent_picto '+class_rent_img+'"></span>\n' +
+                  '                  <span class="rent_picto '+class_rent_img+'"></span>\n' +
                   '                </div>\n' +
                   '              </div>\n' +
                   '            </div>\n' +
@@ -151,12 +149,10 @@ export default {
                 that.qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+vehicleid;
               });
             }, 300);
-            if (new Date(entry.endRental)<new Date())
+            if (new Date(entry.endRent)<new Date())
             {
-              console.log(entry);
-              console.log("")
-              // alert(entry.vehicle.id);
-              console.log("ROZPOCZYNAM PROCEDURE ZWROTU");
+              // console.log(entry);
+              // alert(entry.endRent);
               //  procedura automatycznego zwrotu
               $.ajax({
                 contentType: "application/json",
@@ -166,8 +162,8 @@ export default {
                   "Authorization":"Bearer "+that.getCookie("logintoken"),
                 },
                 type: "PUT",
-                url: "https://car-rental-api-pwo.herokuapp.com/api/rentals",
-                data: JSON.stringify({id:entry.id, startRental:entry.startRental,endRental:entry.endRental,totalPrice:0,car:entry.car}),
+                url: "https://car-rental-api-pwo.herokuapp.com/api/Rent",
+                data: JSON.stringify({id:entry.id, startRent:entry.startRent,endRent:entry.endRent,totalPrice:0,vehicle:entry.vehicle}),
                 success: function(data, textStatus, request){
                   console.log(data);
                   console.log(textStatus);
@@ -180,10 +176,10 @@ export default {
                       "Authorization":"Bearer "+that.getCookie("logintoken"),
                     },
                     type: "PUT",
-                    url: "https://car-rental-api-pwo.herokuapp.com/api/cars",
-                    data: JSON.stringify({id:entry.car.id,mark:null,model:null,range:null,speed:null,pricePerHour:null,vehicleType:null,isAvailable:true}),
+                    url: "https://car-rental-api-pwo.herokuapp.com/api/Vehicle",
+                    data: JSON.stringify({id:entry.vehicle.id,mark:null,model:null,range:null,speed:null,pricePerHour:null,vehicleType:null,isAvailable:true}),
                     success: function(){
-                      location.reload();
+                      // location.reload();
                     },
                   });
                 },
@@ -203,7 +199,10 @@ export default {
     }
   },
   mounted() {
-
+    if(this.isAdmin)
+      this.takeRentsAll();
+    else
+      this.takeRents();
   }
 }
 </script>
